@@ -1,25 +1,60 @@
+:root {
+    --bg-color: #172c66;
+    --border-color: #001050;
+
+    --display-bg-color: #90b4ce;
+    
+    --display-text-color: #0e172c;
+
+    --calculator-bg-color: #fec7d7;
+
+    --util-bg-color: #a786df;
+    --operation-bg-color: #f582ae;
+    --digit-bg-color: #d9d4e7;
+
+    --button-text-color: #0e172c;
+}
+
 body {
     height: 100vh;
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
+    background-color: var(--bg-color);
 }
 
 main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 10px 10px 15px rgba(0,0,0,0.15);
     padding: 10px;
     border-radius: 10px;
+    border: 2px solid var(--border-color);
     display: flex;
     flex-direction: column;
     gap: 10px;
-    background-color: darkgrey;
+    background-color: var(--calculator-bg-color);
+}
+
+main.active{
+    cursor: move;
+    user-select: none;
 }
 
 .display {
     text-align: right;
     padding: 5px;
     border-radius: 5px;
-    background-color: yellowgreen;
+    border: 2px solid var(--border-color);
+    background-color: var(--display-bg-color);
     font-size: 22px;
+}
+
+.display,
+button {
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.3), -3px -3px 5px rgba(255,255,255,0.3);
 }
 
 .keyboard {
@@ -28,6 +63,33 @@ main {
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .add {
+    height: auto;
     grid-column: 4;
     grid-row: 4/span 2;
+}
+
+button {
+    height: 25px;
+    width: 33px;
+    border-radius: 5px;
+    border: 2px solid var(--border-color);
+    color: var(--button-text-color);
+    background-color: var(--digit-bg-color);
+    text-align: center;
+}
+
+button:hover {
+    filter: saturate(160%) brightness(85%);
+}
+
+button:active {
+    filter: saturate(200%) brightness(70%);
+}
+
+button.util {
+    background-color: var(--util-bg-color);
+}
+
+button.operation {
+    background-color: var(--operation-bg-color);
 }
