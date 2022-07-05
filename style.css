@@ -5,7 +5,29 @@ body {
     align-items: center;
 }
 
+main {
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: darkgrey;
+}
+
+.display {
+    text-align: right;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: yellowgreen;
+    font-size: 22px;
+}
+
 .keyboard {
     display: grid;
+    gap: 2px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.add {
+    grid-column: 4;
+    grid-row: 4/span 2;
 }
