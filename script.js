@@ -1,5 +1,7 @@
 let displayText = "0";
 const display = document.querySelector(".display");
+const miniDisplay = document.querySelector(".tiny-display");
+const operationDisplay = document.querySelector(".operation-display");
 //current operation to be performed
 //0 -> None, awaiting operation
 //1 -> Subtraction
@@ -80,6 +82,7 @@ function setup() {
     });
 }
 
+//Set the position of the calculator when dragging
 function onDrag({ movementX, movementY }) {
     let getStyle = window.getComputedStyle(calculator);
     let leftVal = parseInt(getStyle.left);
@@ -88,6 +91,7 @@ function onDrag({ movementX, movementY }) {
     calculator.style.top = `${topVal + movementY}px`;
 }
 
+//Refresh display, if a number is passed, add it to the displayed number
 function updateDisplay(num) {
     if (num == null) {
         display.textContent = displayText;
@@ -103,10 +107,39 @@ function updateDisplay(num) {
     display.textContent = displayText;
 }
 
+//Change the current operation to the one passed
 function changeOperation(operation) {
-    console.log(operation);
+    if (currOperation) {
+        operate();
+    }
+    miniDisplay.textContent = displayText;
+    displayText = "0";
+    updateDisplay();
+    currOperation = operation;
+    switch (operation) {
+        case 1:
+            operationDisplay.textContent = "-";
+            break;
+    
+        case 2:
+            operationDisplay.textContent = "+";
+            break;
+    
+        case 3:
+            operationDisplay.textContent = "/";
+            break;
+    
+        case 4:
+            operationDisplay.textContent = "·";
+            break;            
+                        
+        default:
+            operationDisplay.textContent = "";
+            break;
+    }
 }
 
+//Execute the operation
 function operate() {}
 
 setup();

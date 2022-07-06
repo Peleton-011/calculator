@@ -94,18 +94,38 @@ main.active{
     user-select: none;
 }
 
-.display {
+.upper-display {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.operation-display,
+.tiny-display {
+    font-size: 13px;
+}
+
+.display,
+.operation-display,
+.tiny-display {
     font-family: sevenSegment;
     font-weight: 800;
     text-align: right;
+}
+
+.display {
+    font-size: 25px;
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.whole-display {
     padding: 5px;
     border-radius: 5px;
     border: 2px none var(--border-color);
     background-color: var(--display-bg-color);
-    font-size: 25px;
 }
 
-.display,
+.whole-display,
 button {
     box-shadow: 3px 3px 5px rgba(0,0,0,0.3), -3px -3px 5px rgba(255,255,255,0.2);
 }
