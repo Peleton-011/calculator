@@ -97,7 +97,7 @@ function onDrag({ movementX, movementY }) {
 function updateDisplay(num) {
     miniDisplay.textContent = miniDisplayText;
     operationDisplay.textContent = opDisplayText;
-    
+
     if (num == null) {
         display.textContent = displayText;
         return;
@@ -136,23 +136,19 @@ function operate() {
     let b = toNumber(displayText);
     switch (currOperation) {
         case 1:
-            displayText = a - b;
+            displayText = subtract(a, b);
             break;
     
         case 2:
-            displayText = a + b;
+            displayText = add(a, b);
             break;
     
         case 3:
-            if(b == 0) {
-                display.textContent = "Cant divide by your iq"
-                return;
-            }
-            displayText = a / b;
+            displayText = divide(a, b);
             break;
     
         case 4:
-            displayText = a * b;
+            displayText = multiply(a, b);
             break;            
                         
         default:
@@ -187,6 +183,29 @@ function changeOperation() {
             opDisplayText = "";
             break;
     }
+}
+
+//Add function
+function add(a, b){
+    return a + b;
+}
+
+//Subtract function
+function subtract(a, b) {
+    return a - b;
+}
+
+//Multiply function
+function multiply(a, b) {
+    return a * b;
+}
+
+//Divide function
+function divide (a, b) {
+    if(b == 0) {
+        return "Cant divide by your iq";
+    }
+    return a / b;
 }
 
 //Turns to number
