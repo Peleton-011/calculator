@@ -1,4 +1,6 @@
 let displayText = "0";
+let miniDisplayText = "";
+let opDisplayText = "";
 const display = document.querySelector(".display");
 const miniDisplay = document.querySelector(".tiny-display");
 const operationDisplay = document.querySelector(".operation-display");
@@ -50,25 +52,25 @@ function setup() {
     //Divide button
     const divBtn = document.querySelector(".divide");
     divBtn.addEventListener("click", (e) => {
-        changeOperation(3);
+        addOperation(3);
     });
 
     //Multiply button
     const mltBtn = document.querySelector(".multiply");
     mltBtn.addEventListener("click", (e) => {
-        changeOperation(4);
+        addOperation(4);
     });
 
     //Subtract button
     const subBtn = document.querySelector(".subtract");
     subBtn.addEventListener("click", (e) => {
-        changeOperation(1);
+        addOperation(1);
     });
 
     //Add button
     const addBtn = document.querySelector(".add");
     addBtn.addEventListener("click", (e) => {
-        changeOperation(2);
+        addOperation(2);
     });
 
     //Mouse tracking and dragging of the calculator
@@ -93,6 +95,9 @@ function onDrag({ movementX, movementY }) {
 
 //Refresh display, if a number is passed, add it to the displayed number
 function updateDisplay(num) {
+    miniDisplay.textContent = miniDisplayText;
+    operationDisplay.textContent = opDisplayText;
+    
     if (num == null) {
         display.textContent = displayText;
         return;
@@ -100,46 +105,93 @@ function updateDisplay(num) {
     if (displayText.length > 9){
         return;
     }
+
     displayText = Number(displayText);
     displayText *= 10;
     displayText += num;
     displayText = String(displayText);
+
     display.textContent = displayText;
 }
 
 //Change the current operation to the one passed
-function changeOperation(operation) {
-    if (currOperation) {
+function addOperation(operation) {
+    if (miniDisplayText) {
         operate();
     }
-    miniDisplay.textContent = displayText;
-    displayText = "0";
-    updateDisplay();
     currOperation = operation;
-    switch (operation) {
+    miniDisplayText = displayText;
+    displayText = "0";
+    changeOperation()
+    updateDisplay();
+    updateDisplay();
+}
+
+//Execute the operation
+function operate() {
+    if (!currOperation){
+        return;
+    }
+    let a = toNumber(miniDisplayText);
+    let b = toNumber(displayText);
+    switch (currOperation) {
         case 1:
-            operationDisplay.textContent = "-";
+            displayText = a - b;
             break;
     
         case 2:
-            operationDisplay.textContent = "+";
+            displayText = a + b;
             break;
     
         case 3:
-            operationDisplay.textContent = "/";
+            if(b == 0) {
+                display.textContent = "Cant divide by your iq"
+                return;
+            }
+            displayText = a / b;
             break;
     
         case 4:
-            operationDisplay.textContent = "·";
+            displayText = a * b;
             break;            
                         
         default:
-            operationDisplay.textContent = "";
+            break;
+    }
+    miniDisplayText = "";
+    opDisplayText = "";
+    currOperation = 0;
+    updateDisplay();
+}
+
+//Changes current operation in display
+function changeOperation() {
+    switch (currOperation) {
+        case 1:
+            opDisplayText = "-";
+            break;
+    
+        case 2:
+            opDisplayText = "+";
+            break;
+    
+        case 3:
+            opDisplayText = "/";
+            break;
+    
+        case 4:
+            opDisplayText = "·";
+            break;            
+                        
+        default:
+            opDisplayText = "";
             break;
     }
 }
 
-//Execute the operation
-function operate() {}
+//Turns to number
+function toNumber(str) {
+    return Number(str);
+}
 
 setup();
