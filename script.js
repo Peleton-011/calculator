@@ -11,8 +11,19 @@ let currOperation = 0;
 const calculator = document.querySelector("main");
 
 function setup() {
-    //All number buttons
+    //Backspace button
+    const backspaceBtn = document.querySelector(".backspace");
+    backspaceBtn.addEventListener("click", e => {
+        let len = displayText.length
+        if (len == 1) {
+            displayText = "0";
+        } else {
+            displayText = displayText.slice(0, len - 1);
+        }
+        updateDisplay();
+    })
 
+    //All number buttons
     const numBtns = document.querySelectorAll(".num");
     numBtns.forEach((numBtn) => {
         numBtn.addEventListener("click", (e) => {
@@ -70,6 +81,10 @@ function onDrag({ movementX, movementY }) {
 }
 
 function updateDisplay(num) {
+    if (num == null) {
+        display.textContent = displayText;
+        return;
+    }
     if (displayText.length > 9){
         return;
     }
