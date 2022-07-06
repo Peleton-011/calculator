@@ -17,23 +17,23 @@ const calculator = document.querySelector("main");
 function setup() {
     //Clear button
     const clearBtn = document.querySelector(".clear");
-    clearBtn.addEventListener("click", e => {
+    clearBtn.addEventListener("click", (e) => {
         displayText = "0";
         currOperation = "0";
         updateDisplay();
-    })
+    });
 
     //Backspace button
     const backspaceBtn = document.querySelector(".backspace");
-    backspaceBtn.addEventListener("click", e => {
-        let len = displayText.length
+    backspaceBtn.addEventListener("click", (e) => {
+        let len = displayText.length;
         if (len == 1) {
             displayText = "0";
         } else {
             displayText = displayText.slice(0, len - 1);
         }
         updateDisplay();
-    })
+    });
 
     //All number buttons
     const numBtns = document.querySelectorAll(".num");
@@ -102,7 +102,7 @@ function updateDisplay(num) {
         display.textContent = displayText;
         return;
     }
-    if (displayText.length > 9){
+    if (displayText.length > 9) {
         return;
     }
 
@@ -122,14 +122,14 @@ function addOperation(operation) {
     currOperation = operation;
     miniDisplayText = displayText;
     displayText = "0";
-    changeOperation()
+    changeOperation();
     updateDisplay();
     updateDisplay();
 }
 
 //Execute the operation
 function operate() {
-    if (!currOperation){
+    if (!currOperation) {
         return;
     }
     let a = toNumber(miniDisplayText);
@@ -138,19 +138,19 @@ function operate() {
         case 1:
             displayText = subtract(a, b);
             break;
-    
+
         case 2:
             displayText = add(a, b);
             break;
-    
+
         case 3:
             displayText = divide(a, b);
             break;
-    
+
         case 4:
             displayText = multiply(a, b);
-            break;            
-                        
+            break;
+
         default:
             break;
     }
@@ -166,19 +166,19 @@ function changeOperation() {
         case 1:
             opDisplayText = "-";
             break;
-    
+
         case 2:
             opDisplayText = "+";
             break;
-    
+
         case 3:
             opDisplayText = "/";
             break;
-    
+
         case 4:
             opDisplayText = "·";
-            break;            
-                        
+            break;
+
         default:
             opDisplayText = "";
             break;
@@ -186,7 +186,7 @@ function changeOperation() {
 }
 
 //Add function
-function add(a, b){
+function add(a, b) {
     return a + b;
 }
 
@@ -201,8 +201,8 @@ function multiply(a, b) {
 }
 
 //Divide function
-function divide (a, b) {
-    if(b == 0) {
+function divide(a, b) {
+    if (b == 0) {
         return "Cant divide by your iq";
     }
     return a / b;
