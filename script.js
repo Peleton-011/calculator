@@ -11,6 +11,14 @@ let currOperation = 0;
 const calculator = document.querySelector("main");
 
 function setup() {
+    //Clear button
+    const clearBtn = document.querySelector(".clear");
+    clearBtn.addEventListener("click", e => {
+        displayText = "0";
+        currOperation = "0";
+        updateDisplay();
+    })
+
     //Backspace button
     const backspaceBtn = document.querySelector(".backspace");
     backspaceBtn.addEventListener("click", e => {
