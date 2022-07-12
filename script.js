@@ -1,6 +1,9 @@
 let displayText = "0";
 let miniDisplayText = "";
 let opDisplayText = "";
+
+let isDecimal = false;
+
 const display = document.querySelector(".display");
 const miniDisplay = document.querySelector(".tiny-display");
 const operationDisplay = document.querySelector(".operation-display");
@@ -15,6 +18,13 @@ let currOperation = 0;
 const calculator = document.querySelector("main");
 
 function setup() {
+    //Period button
+    const periodBtn = document.querySelector(".decimal");
+    periodBtn.addEventListener("click", (e) => {
+        isDecimal = !isDecimal
+        updateDisplay(".");
+    });
+
     //Clear button
     const clearBtn = document.querySelector(".clear");
     clearBtn.addEventListener("click", (e) => {
@@ -106,10 +116,17 @@ function updateDisplay(num) {
         return;
     }
 
-    displayText = Number(displayText);
-    displayText *= 10;
-    displayText += num;
-    displayText = String(displayText);
+    // if (/^\d$/g.test(num)) {
+    //     displayText = Number(displayText);
+    //     displayText *= 10;
+    //     displayText += num;
+    //     displayText = String(displayText);
+    // } else {
+    displayText += String(num);
+    while (displayText[0] == "0") {
+        displayText = displayText.slice(1);        
+    }
+    // }
 
     display.textContent = displayText;
 }
@@ -153,6 +170,14 @@ function operate() {
 
         default:
             break;
+    }
+    if (Number(displayText) >= 10000000000) {
+        displayText = "ERROR"
+    } else if (displayText.length > 9) {
+        const subStrs = displayText.split(".");
+        let decimalLen = 10 - subStrs[0].length;
+        subStrs[1] = subStrs[1].slice(0, decimalLen -1);
+        displayText = subStrs[0] + "." + subStrs[1];
     }
     miniDisplayText = "";
     opDisplayText = "";
